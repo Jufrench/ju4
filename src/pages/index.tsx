@@ -62,7 +62,7 @@ const HeaderMobile = () => {
   return (
     <header>
       <Group p="md" style={{width: "90%", margin: "0 auto"}} justify="space-between">
-        <Avatar color="#00adad" radius="0"><IconSquareHalf size="xs" /></Avatar>
+        <Avatar variant="transparent" color="#00adad" radius="0"><IconSquareHalf size="xs" /></Avatar>
         <ActionIcon variant="outline" color="gray" size="xl" onClick={open}><IconMenu2 stroke={3} /></ActionIcon>
       </Group>
       <MobileDrawerMenu />
@@ -197,38 +197,29 @@ const Skills = () => {
   )
 }
 
-const Projects = (props: {projectList: string[]}) => {
+const Projects = (props: {projectList: {}[]}) => {
   const projectsStyle = {
     border: '1px solid gray'
   };
 
-  const ProjectItem = (props: {key: string, projectName: string}) => {
+  const ProjectItem = (props: {key: string, title: string, url: string}) => {
     return (
-      <Card style={{border: "1px solid gray", borderRadius: 0}}>
+      <Card component='a' href={props.url} target="_blank" style={{border: "1px solid gray", borderRadius: 0}}>
         <Group justify="space-between">
-          <Title size="h5" style={{color: "gray"}}>{props.projectName}</Title>
-          <ActionIcon component='a' variant='light' color="gray"><IconArrowBigRight /></ActionIcon>
+          <Title size="h5" style={{color: "gray"}}>{props.title}</Title>
+          {/* <ActionIcon component='a' variant='light' color="gray"> */}
+            <IconArrowBigRight color="gray" />
+          {/* </ActionIcon> */}
         </Group>
       </Card>
     )
   };
 
-  // return (
-  //   <Center component="section">
-  //     <Stack style={{...sectionContentStyle, ...projectsStyle}} gap={0}>
-  //       Projects Section
-  //       {props.projectList.map((project: string) => {
-  //         return (
-  //           <ProjectItem key={project} projectName={project} />
-  //         );
-  //       })}
-  //     </Stack>
-  //   </Center>
-  // )
-  // ===================
-  const projects = props.projectList.map((project: string) => {
+  // const projects = props.projectList.map((project: { [key:string]: string}) => {
+  const projects = props.projectList.map((item: { [key:string]: string }) => {
+  // const projects = props.projectList.map((project: any) => {
     return (
-      <ProjectItem key={project} projectName={project} />
+      <ProjectItem key={item.title} title={item.title} url={item.url} />
     );
   });
 
@@ -244,7 +235,17 @@ const Projects = (props: {projectList: string[]}) => {
   )
 };
 
-const projectList: string[] = ['Flag Doyen', 'Mai Globo'];
+// const projectList: string[] = ['Flag Doyen', 'Mai Globo'];
+const projectList: {}[] = [
+  {
+    title: 'Flag Doyen',
+    url: 'https://flagdoyen.vercel.app/'
+  },
+  {
+    title: 'Mai Globo',
+    url: 'https://maiglobo.vercel.app/'
+  }
+];
 
 console.log('%cLOOK AT THESE LINKS!!!', 'color:tomato');
 // https://www.pinterest.com/pin/491596115549332325/
@@ -294,7 +295,8 @@ const Footer = () => {
   return (
     <Center component="footer" style={footerWrapperStyle}>
       <Group p="md" style={footerContentStyle} justify="flex-end">
-        <Text span c="#00adad" style={{marginRight: "auto", fontWeight: 700}}>Jules</Text>
+        {/* <Text span c="#00adad" style={{marginRight: "auto", fontWeight: 700}}>Jules</Text> */}
+        <Avatar variant="transparent" color="#00adad" radius="0" style={{marginRight: "auto"}}><IconSquareHalf size="xs" /></Avatar>
         <Group>
           {contactInfo.map((item: { [key:string]: string | ReactNode | undefined }, index) => (
             <FooterContactLink key={index} text={(item.text as string)} url={(item.url as string)} />

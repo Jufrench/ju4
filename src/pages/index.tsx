@@ -4,8 +4,8 @@ import { Inter } from "next/font/google";
 // import styles from "@/styles/Home.module.css";
 
 import { rem, Center, Container, SimpleGrid, Grid, Space, Box,
-  ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+  ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card, Drawer, NavLink } from '@mantine/core';
+import { useMediaQuery, useDisclosure } from '@mantine/hooks';
 import { IconMenu2 } from '@tabler/icons-react';
 import { ReactNode } from "react";
 
@@ -41,12 +41,30 @@ const Header = () => {
 };
 
 const HeaderMobile = () => {
+  const [opened, { open, close }] = useDisclosure(false);
+  const navText = ['Home', 'About', 'Project', 'Contact'];
+
+  const navItems = navText.map(label => (
+    <NavLink key={label} label={label} color="black" style={{fontWeight: 700}}/>
+  ))
+
+  const MobileDrawerMenu = () => {
+    return (
+      <Drawer opened={opened} onClose={close}>
+        <Stack style={{color:"black"}} justify="center">
+          {navItems}
+        </Stack>
+      </Drawer>
+    )
+  };
+  
   return (
     <header>
-      <Group style={{width: "90%", padding: `${rem(10)} 0`, margin: "0 auto"}} justify="space-between">
+      <Group p="md" style={{width: "90%", margin: "0 auto"}} justify="space-between">
         <Title order={1} size="h2"><span style={{textDecoration: "underline"}}>Ju</span><span>lian</span></Title>
-        <ActionIcon variant="outline" color="gray" size="xl"><IconMenu2 stroke={3} /></ActionIcon>
+        <ActionIcon variant="outline" color="gray" size="xl" onClick={open}><IconMenu2 stroke={3} /></ActionIcon>
       </Group>
+      <MobileDrawerMenu />
     </header>
   )
 };
@@ -68,17 +86,31 @@ const Hero = () => {
     //   </Container>
     // </Center>
     // ================
-    <Center component="section" style={{border: '1px solid tomato'}}>
-      <Stack style={{width: sectionContentWidth, ...heroStyle}} gap={0}>
+    <Center component="section">
+      <Stack p="md" style={{width: sectionContentWidth, ...heroStyle}} gap={0}>
         {/* <Box bg="gray" style={{height: "30%"}}></Box> */}
         <Box
           style={{
-            height: "50%",
+            height: "20%",
             background: 'repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.3), rgba(51, 51, 51, 0.3) 7px, lightgray 5px, lightgray 16px)'
           }}/>
         <Box bg="#00adad" style={{flexGrow: 1}}></Box>
       </Stack>
     </Center>
+  )
+}
+
+const WhoAmI = () => {
+  const whoStyle = {
+    border: '1px solid lightgray'
+  };
+
+  return (
+    <>
+      <About />
+      {/* <Divider my="xs" /> */}
+      <Skills />
+    </>
   )
 }
 
@@ -89,12 +121,66 @@ const About = () => {
 
   return (
     <Center component="section">
-      <Stack style={{...sectionContentStyle, ...aboutStyle}} gap={0}>
-        <Title size="h3">Who</Title>
+      <Stack style={{...sectionContentStyle}} gap={0}>
+        <Title order={3} size="h3">Who</Title>
         <Text>Hello.</Text>
         <Text>I'm Web Developer & aspiring Full-Stack Developer. My traditional educational & collegiate background is in Music & Foreign Languages. I decided to make a career out of Web Development when I allowed myself to follow my curiosities about coding.</Text>
         <Divider my="xs" />
         <Text>Currently I'm pursuing an associate's degree in Computer Information Systems while working full time as a Front-end Developer.</Text>
+      </Stack>
+    </Center>
+  )
+}
+
+const Skills = () => {
+  const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL']
+    .map((lang, index, arr) => {
+      return (
+        <Box key={index} component="span">
+          <Text style={{lineHeight: 1}} span>{lang}</Text>
+          {index !== arr.length - 1 && <Divider orientation="vertical" />}
+        </Box>
+      )
+    });
+
+  const librariesAndFrameworks = ['React', 'Next.js', 'Gatsby', 'Bootstrap', 'Mantine']
+    .map((lib, index, arr) => {
+      return (
+        <Box key={index} component="span">
+          <Text style={{lineHeight: 1}} span>{lib}</Text>
+          {index !== arr.length - 1 && <Divider orientation="vertical" />}
+        </Box>
+      )
+    });
+
+  const tools = ['Git', 'Github', 'Vercel', 'Netlify']
+    .map((tool, index, arr) => {
+      return (
+        <Box key={index} component="span">
+          <Text style={{lineHeight: 1}} span>{tool}</Text>
+          {index !== arr.length - 1 && <Divider orientation="vertical" />}
+        </Box>
+      )
+    });
+
+  return (
+    <Center component="section">
+      <Stack style={{...sectionContentStyle}} gap={0}>
+        <Title order={3} size="h3" style={{textAlign: "right"}}>Skills</Title>
+        <Stack>
+          <Box>
+            <Text td="underline">Languages</Text>
+            <Group gap="xs">{languages}</Group>
+          </Box>
+          <Box>
+            <Text td="underline">Libraries & Frameworks</Text>
+            <Group>{librariesAndFrameworks}</Group>
+          </Box>
+          <Box>
+            <Text td="underline">Tools</Text>
+            <Group>{tools}</Group>
+          </Box>
+        </Stack>
       </Stack>
     </Center>
   )
@@ -126,15 +212,17 @@ const Projects = (props: {projectList: string[]}) => {
   //   </Center>
   // )
   // ===================
+  const projects = props.projectList.map((project: string) => {
+    return (
+      <ProjectItem key={project} projectName={project} />
+    );
+  });
+
   return (
     <Center component="section">
-      <SimpleGrid style={{...sectionContentStyle, ...projectsStyle}} spacing="md">
+      <SimpleGrid style={{...sectionContentStyle}} spacing="md">
         <Title size="h3">Projects</Title>
-        {props.projectList.map((project: string) => {
-          return (
-            <ProjectItem key={project} projectName={project} />
-          );
-        })}
+        {projects}
       </SimpleGrid>
     </Center>
   )
@@ -179,7 +267,7 @@ const Footer = () => {
   };
 
   const footerContentStyle = {
-    padding: `${rem(20)} 0`,
+    // padding: rem(20),
     width: '90%',
   };
 
@@ -189,7 +277,7 @@ const Footer = () => {
 
   return (
     <Center component="footer" style={footerWrapperStyle}>
-      <Group style={footerContentStyle} justify="flex-end">
+      <Group p="md" style={footerContentStyle} justify="flex-end">
         <Text span style={{marginRight: "auto"}}>Jules</Text>
         <Group>
           {contactInfo.map((item: { [key:string]: string | ReactNode | undefined }, index) => (
@@ -211,109 +299,15 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HeaderMobile />
-      {/* <Header /> */}
-      <Space h="lg" />
-      <Stack component="main" gap="xl">
+      <Stack gap="sm">
+        {/* <Space h="sm" /> */}
         <Hero />
+        {/* <WhoAmI /> */}
         <About />
+        <Skills />
         <Projects projectList={projectList} />
         <Footer />
       </Stack>
-      {/* <main className={`${styles.main} ${inter.className}`}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>src/pages/index.tsx</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{" "}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
-      </main> */}
     </>
   );
 }

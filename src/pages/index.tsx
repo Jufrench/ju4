@@ -1,3 +1,5 @@
+import React from 'react';
+
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
@@ -8,7 +10,6 @@ import { rem, Center, Container, SimpleGrid, Grid, Space, Box,
 import { useMediaQuery, useDisclosure } from '@mantine/hooks';
 import { IconMenu2 } from '@tabler/icons-react';
 import { ReactNode } from "react";
-
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -134,34 +135,34 @@ const About = () => {
 
 const Skills = () => {
   const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL']
-    .map((lang, index, arr) => {
-      return (
-        <Box key={index} component="span">
+    .map((lang, index, arr) => (
+      // return (
+        <React.Fragment key={index}>
           <Text style={{lineHeight: 1}} span>{lang}</Text>
           {index !== arr.length - 1 && <Divider orientation="vertical" />}
-        </Box>
-      )
-    });
+        </React.Fragment>
+      // )
+    ));
 
   const librariesAndFrameworks = ['React', 'Next.js', 'Gatsby', 'Bootstrap', 'Mantine']
-    .map((lib, index, arr) => {
-      return (
-        <Box key={index} component="span">
+    .map((lib, index, arr) => (
+      // return (
+        <React.Fragment key={index}>
           <Text style={{lineHeight: 1}} span>{lib}</Text>
           {index !== arr.length - 1 && <Divider orientation="vertical" />}
-        </Box>
-      )
-    });
+        </React.Fragment>
+      // )
+    ));
 
   const tools = ['Git', 'Github', 'Vercel', 'Netlify']
-    .map((tool, index, arr) => {
-      return (
-        <Box key={index} component="span">
+    .map((tool, index, arr) => (
+      // return (
+        <React.Fragment key={index}>
           <Text style={{lineHeight: 1}} span>{tool}</Text>
           {index !== arr.length - 1 && <Divider orientation="vertical" />}
-        </Box>
-      )
-    });
+        </React.Fragment>
+      // )
+    ));
 
   return (
     <Center component="section">
@@ -169,16 +170,31 @@ const Skills = () => {
         <Title order={3} size="h3" style={{textAlign: "right"}}>Skills</Title>
         <Stack>
           <Box>
-            <Text td="underline">Languages</Text>
+            <Divider
+              my="xs"
+              labelPosition="left"
+              label={
+                <Text c="gray">Languages</Text>
+              } />
             <Group gap="xs">{languages}</Group>
           </Box>
           <Box>
-            <Text td="underline">Libraries & Frameworks</Text>
-            <Group>{librariesAndFrameworks}</Group>
+            <Divider
+              my="xs"
+              labelPosition="left"
+              label={
+                <Text>Libraries & Frameworks</Text>
+              } />
+            <Group gap="xs">{librariesAndFrameworks}</Group>
           </Box>
           <Box>
-            <Text td="underline">Tools</Text>
-            <Group>{tools}</Group>
+            <Divider
+              my="xs"
+              labelPosition="left"
+              label={
+                <Text>Tools</Text>
+              } />
+            <Group gap="xs">{tools}</Group>
           </Box>
         </Stack>
       </Stack>

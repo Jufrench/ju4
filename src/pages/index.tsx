@@ -8,7 +8,7 @@ import { Inter } from "next/font/google";
 import { rem, Center, Container, SimpleGrid, Grid, Space, Box,
   ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card, Drawer, NavLink, Avatar } from '@mantine/core';
 import { useMediaQuery, useDisclosure } from '@mantine/hooks';
-import { IconMenu2, IconSquareHalf } from '@tabler/icons-react';
+import { IconMenu2, IconSquareHalf, IconArrowBigRight } from '@tabler/icons-react';
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -205,7 +205,10 @@ const Projects = (props: {projectList: string[]}) => {
   const ProjectItem = (props: {key: string, projectName: string}) => {
     return (
       <Card style={{border: "1px solid gray", borderRadius: 0}}>
-        <Title size="h5" style={{color: "gray"}}>{props.projectName}</Title>
+        <Group justify="space-between">
+          <Title size="h5" style={{color: "gray"}}>{props.projectName}</Title>
+          <ActionIcon component='a' variant='light' color="gray"><IconArrowBigRight /></ActionIcon>
+        </Group>
       </Card>
     )
   };
@@ -231,10 +234,12 @@ const Projects = (props: {projectList: string[]}) => {
 
   return (
     <Center component="section">
-      <SimpleGrid style={{...sectionContentStyle}} spacing="md">
+      <Stack style={sectionContentStyle}>
         <Title size="h3">Projects</Title>
-        {projects}
-      </SimpleGrid>
+        <SimpleGrid spacing="md" cols={{ base: 1, sm: 3 }}>
+          {projects}
+        </SimpleGrid>
+      </Stack>
     </Center>
   )
 };

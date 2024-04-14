@@ -162,7 +162,7 @@ const Skills = () => {
   return (
     <Center component="section">
       <Stack style={{...sectionContentStyle}} gap={0}>
-        <Title order={3} size="h3" style={{textAlign: "right"}}>Skills</Title>
+        <Title order={3} size="h3">Skills</Title>
         <Stack>
           <Box>
             <Divider

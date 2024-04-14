@@ -4,7 +4,7 @@ import { Inter } from "next/font/google";
 // import styles from "@/styles/Home.module.css";
 
 import { rem, Center, Container, SimpleGrid, Grid, Space, Box,
-  ActionIcon, Stack, Title, Group, Anchor, Text } from '@mantine/core';
+  ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card } from '@mantine/core';
 import { useMediaQuery } from '@mantine/hooks';
 import { IconMenu2 } from '@tabler/icons-react';
 import { ReactNode } from "react";
@@ -43,9 +43,10 @@ const Header = () => {
 const HeaderMobile = () => {
   return (
     <header>
-      <Container p={10} pr={0} style={{...sectionContentStyle, textAlign: "right"}}>
+      <Group style={{width: "90%", padding: `${rem(10)} 0`, margin: "0 auto"}} justify="space-between">
+        <Title order={1} size="h2"><span style={{textDecoration: "underline"}}>Ju</span><span>lian</span></Title>
         <ActionIcon variant="outline" color="gray" size="xl"><IconMenu2 stroke={3} /></ActionIcon>
-      </Container>
+      </Group>
     </header>
   )
 };
@@ -69,7 +70,12 @@ const Hero = () => {
     // ================
     <Center component="section" style={{border: '1px solid tomato'}}>
       <Stack style={{width: sectionContentWidth, ...heroStyle}} gap={0}>
-        <Box bg="gray" style={{height: "30%"}}></Box>
+        {/* <Box bg="gray" style={{height: "30%"}}></Box> */}
+        <Box
+          style={{
+            height: "50%",
+            background: 'repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.3), rgba(51, 51, 51, 0.3) 7px, lightgray 5px, lightgray 16px)'
+          }}/>
         <Box bg="#00adad" style={{flexGrow: 1}}></Box>
       </Stack>
     </Center>
@@ -78,13 +84,17 @@ const Hero = () => {
 
 const About = () => {
   const aboutStyle = {
-    border: '1px solid gray'
+    border: '1px solid lightgray'
   };
 
   return (
     <Center component="section">
       <Stack style={{...sectionContentStyle, ...aboutStyle}} gap={0}>
-        About Section
+        <Title size="h3">Who</Title>
+        <Text>Hello.</Text>
+        <Text>I'm Web Developer & aspiring Full-Stack Developer. My traditional educational & collegiate background is in Music & Foreign Languages. I decided to make a career out of Web Development when I allowed myself to follow my curiosities about coding.</Text>
+        <Divider my="xs" />
+        <Text>Currently I'm pursuing an associate's degree in Computer Information Systems while working full time as a Front-end Developer.</Text>
       </Stack>
     </Center>
   )
@@ -93,6 +103,14 @@ const About = () => {
 const Projects = (props: {projectList: string[]}) => {
   const projectsStyle = {
     border: '1px solid gray'
+  };
+
+  const ProjectItem = (props: {key: string, projectName: string}) => {
+    return (
+      <Card style={{border: "1px solid gray", borderRadius: 0}}>
+        <Title size="h5" style={{color: "gray"}}>{props.projectName}</Title>
+      </Card>
+    )
   };
 
   // return (
@@ -111,7 +129,7 @@ const Projects = (props: {projectList: string[]}) => {
   return (
     <Center component="section">
       <SimpleGrid style={{...sectionContentStyle, ...projectsStyle}} spacing="md">
-        Projects Section
+        <Title size="h3">Projects</Title>
         {props.projectList.map((project: string) => {
           return (
             <ProjectItem key={project} projectName={project} />
@@ -124,57 +142,59 @@ const Projects = (props: {projectList: string[]}) => {
 
 const projectList: string[] = ['Flag Doyen', 'Mai Globo'];
 
-const ProjectItem = (props: {key: string, projectName: string}) => {
-  return (
-    <Box style={{border: "1px solid tomato"}}>
-      <Title style={{color: "tomato"}}>{props.projectName}</Title>
-    </Box>
-  )
-};
-
 console.log('%cLOOK AT THESE LINKS!!!', 'color:tomato');
-// https://www.google.com/search?client=firefox-b-1-d&sca_esv=4cb3c826a86dcae5&sca_upv=1&q=web+design+color+block&uds=AMwkrPt6dIXnRtjJz8sZ_2oc3TNl7swDuY2ybJ8dP31B2vkvi493dLtGR_N7ONogqeI5XNt-cDfG6nQnWOpKejLQ7xAPQBRByBTfDqEKRw863uKDMTKG8J_oApJ1mR1I8_dPX3YLDMVyP14nnMCYTMvz-hCbJ3FPYQS_S0r3UP_IvN8vBDnT78FcAbc4m7kAciPm-TCLHcxPau6S7ev-z-XTQrXNFd44Q30_jMdOiJR_5jx73zbFMO5891DbFUriLSMhwOXRgxXfymmEn7-pu154aMDJ7wH70HE4upI3-bTCBCx6tjQ45hc1V5NvKxI44TFIVXRDeYO4&udm=2&prmd=isvnmbtz&sa=X&ved=2ahUKEwii97WC9raFAxWMTDABHT4FCVsQtKgLegQICRAB&biw=1440&bih=762&dpr=2#vhid=Hiv4PoFgBGdiEM&vssid=mosaic
 // https://www.pinterest.com/pin/491596115549332325/
-// https://i.pinimg.com/originals/a2/e4/02/a2e402b64981ccddd1452699057b12ab.jpg
 // https://i.pinimg.com/originals/0c/bb/dc/0cbbdc2696c6c524ea261b6aec3240a4.jpg
 
 const contactInfo: { [key:string]: string | ReactNode | undefined }[] = [
   {
-    name: "Github",
+    text: "Github",
     url: "https://www.github.com/Jufrench",
     // icon: <IconBrandGithubFilled />
   },
   {
-    name: "LinkedIn",
+    text: "LinkedIn",
     url: "https://www.linkedin.com/in/julesfrench/",
     // icon: <IconBrandLinkedin />
   },
   {
-    name: "Email",
+    text: "Email",
     url: "mailto:ju.french@gmail.com",
     // icon: <IconMailFilled />
   },
   {
-    name: "Ko-Fi",
+    text: "Ko-Fi",
     url: "https://ko-fi.com/moijules",
     // customIcon: <KofiIcon />
   }
 ]
 
+// stripes for empty spaces
+// each project would have a background of stripes or circles on a card instead of a picutre
+
 const Footer = () => {
-  const footerStyle = {
-    border: '1px solid gray',
-    background: '#00adad'
+  const footerWrapperStyle ={
+    borderTop: '1px solid gray',
+    background: 'repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.3), rgba(51, 51, 51, 0.3) 7px, lightgray 5px, lightgray 16px)'
+  };
+
+  const footerContentStyle = {
+    padding: `${rem(20)} 0`,
+    width: '90%',
+  };
+
+  const FooterContactLink = (props: { key: number, text: string, url: string }) => {
+    return <Anchor c="black" href={props.url}>{props.text}</Anchor>
   };
 
   return (
-    <Center component="footer">
-      <Group style={{...sectionContentStyle, ...footerStyle}} justify="flex-end">
+    <Center component="footer" style={footerWrapperStyle}>
+      <Group style={footerContentStyle} justify="flex-end">
         <Text span style={{marginRight: "auto"}}>Jules</Text>
         <Group>
-          {contactInfo.map((item: { [key:string]: string | ReactNode | undefined }) => {
-            return <Anchor c="black" href={(item.url as string)} target="_blank">{item.name}</Anchor>
-          })}
+          {contactInfo.map((item: { [key:string]: string | ReactNode | undefined }, index) => (
+            <FooterContactLink key={index} text={(item.text as string)} url={(item.url as string)} />
+          ))}
         </Group>
       </Group>
     </Center>

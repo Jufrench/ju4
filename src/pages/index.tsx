@@ -6,9 +6,9 @@ import { Inter } from "next/font/google";
 // import styles from "@/styles/Home.module.css";
 
 import { rem, Center, Container, SimpleGrid, Grid, Space, Box,
-  ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card, Drawer, NavLink } from '@mantine/core';
+  ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card, Drawer, NavLink, Avatar } from '@mantine/core';
 import { useMediaQuery, useDisclosure } from '@mantine/hooks';
-import { IconMenu2 } from '@tabler/icons-react';
+import { IconMenu2, IconSquareHalf } from '@tabler/icons-react';
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -62,7 +62,7 @@ const HeaderMobile = () => {
   return (
     <header>
       <Group p="md" style={{width: "90%", margin: "0 auto"}} justify="space-between">
-        <Title order={1} size="h2"><span style={{textDecoration: "underline"}}>Ju</span><span>lian</span></Title>
+        <Avatar color="#00adad" radius="0"><IconSquareHalf size="xs" /></Avatar>
         <ActionIcon variant="outline" color="gray" size="xl" onClick={open}><IconMenu2 stroke={3} /></ActionIcon>
       </Group>
       <MobileDrawerMenu />
@@ -93,7 +93,7 @@ const Hero = () => {
         <Box
           style={{
             height: "20%",
-            background: 'repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.3), rgba(51, 51, 51, 0.3) 7px, lightgray 5px, lightgray 16px)'
+            background: 'repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.1), rgba(51, 51, 51, 0.1) 7px, lightgray 5px, lightgray 16px)'
           }}/>
         <Box bg="#00adad" style={{flexGrow: 1}}></Box>
       </Stack>
@@ -101,24 +101,21 @@ const Hero = () => {
   )
 }
 
-const WhoAmI = () => {
-  const whoStyle = {
-    border: '1px solid lightgray'
-  };
+// const WhoAmI = () => {
+//   const whoStyle = {
+//     border: '1px solid lightgray'
+//   };
 
-  return (
-    <>
-      <About />
-      {/* <Divider my="xs" /> */}
-      <Skills />
-    </>
-  )
-}
+//   return (
+//     <>
+//       <About />
+//       {/* <Divider my="xs" /> */}
+//       <Skills />
+//     </>
+//   )
+// }
 
 const About = () => {
-  const aboutStyle = {
-    border: '1px solid lightgray'
-  };
 
   return (
     <Center component="section">
@@ -136,32 +133,26 @@ const About = () => {
 const Skills = () => {
   const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL']
     .map((lang, index, arr) => (
-      // return (
-        <React.Fragment key={index}>
-          <Text style={{lineHeight: 1}} span>{lang}</Text>
-          {index !== arr.length - 1 && <Divider orientation="vertical" />}
-        </React.Fragment>
-      // )
+      <React.Fragment key={index}>
+        <Text style={{lineHeight: 1}} span>{lang}</Text>
+        {index !== arr.length - 1 && <Divider orientation="vertical" />}
+      </React.Fragment>
     ));
 
   const librariesAndFrameworks = ['React', 'Next.js', 'Gatsby', 'Bootstrap', 'Mantine']
     .map((lib, index, arr) => (
-      // return (
-        <React.Fragment key={index}>
-          <Text style={{lineHeight: 1}} span>{lib}</Text>
-          {index !== arr.length - 1 && <Divider orientation="vertical" />}
-        </React.Fragment>
-      // )
+      <React.Fragment key={index}>
+        <Text style={{lineHeight: 1}} span>{lib}</Text>
+        {index !== arr.length - 1 && <Divider orientation="vertical" />}
+      </React.Fragment>
     ));
 
   const tools = ['Git', 'Github', 'Vercel', 'Netlify']
     .map((tool, index, arr) => (
-      // return (
-        <React.Fragment key={index}>
-          <Text style={{lineHeight: 1}} span>{tool}</Text>
-          {index !== arr.length - 1 && <Divider orientation="vertical" />}
-        </React.Fragment>
-      // )
+      <React.Fragment key={index}>
+        <Text style={{lineHeight: 1}} span>{tool}</Text>
+        {index !== arr.length - 1 && <Divider orientation="vertical" />}
+      </React.Fragment>
     ));
 
   return (
@@ -279,7 +270,7 @@ const contactInfo: { [key:string]: string | ReactNode | undefined }[] = [
 const Footer = () => {
   const footerWrapperStyle ={
     borderTop: '1px solid gray',
-    background: 'repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.3), rgba(51, 51, 51, 0.3) 7px, lightgray 5px, lightgray 16px)'
+    background: 'repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.1), rgba(51, 51, 51, 0.1) 7px, lightgray 5px, lightgray 16px)'
   };
 
   const footerContentStyle = {
@@ -294,7 +285,7 @@ const Footer = () => {
   return (
     <Center component="footer" style={footerWrapperStyle}>
       <Group p="md" style={footerContentStyle} justify="flex-end">
-        <Text span style={{marginRight: "auto"}}>Jules</Text>
+        <Text span c="#00adad" style={{marginRight: "auto", fontWeight: 700}}>Jules</Text>
         <Group>
           {contactInfo.map((item: { [key:string]: string | ReactNode | undefined }, index) => (
             <FooterContactLink key={index} text={(item.text as string)} url={(item.url as string)} />

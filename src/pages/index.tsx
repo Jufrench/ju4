@@ -95,7 +95,11 @@ const Hero = () => {
             height: "20%",
             background: 'repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.1), rgba(51, 51, 51, 0.1) 7px, lightgray 5px, lightgray 16px)'
           }}/>
-        <Box bg="#00adad" style={{flexGrow: 1}}></Box>
+        <Box bg="#00adad" pl="md" pb="md" style={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
+          <Title order={1} c="white" m="0" lh="1" style={{fontSize: "3rem"}}>Julian</Title>
+          {/* <Divider /> */}
+          <Title order={1} c="black" m="0" lh="1" style={{fontSize: "2.75rem"}}>French</Title>
+        </Box>
       </Stack>
     </Center>
   )

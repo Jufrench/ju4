@@ -62,7 +62,7 @@ const HeaderMobile = () => {
   return (
     <header>
       <Group p="md" style={{width: "90%", margin: "0 auto"}} justify="space-between">
-        <Avatar variant="transparent" color="#00adad" radius="0"><IconSquareHalf size="xs" /></Avatar>
+        <Avatar variant="transparent" color="#00adad" radius="0" style={{color: "#00adad"}}><IconSquareHalf size="xs" /></Avatar>
         <ActionIcon variant="outline" color="gray" size="xl" onClick={open}><IconMenu2 stroke={3} /></ActionIcon>
       </Group>
       <MobileDrawerMenu />
@@ -296,7 +296,9 @@ const Footer = () => {
     <Center component="footer" style={footerWrapperStyle}>
       <Group p="md" style={footerContentStyle} justify="flex-end">
         {/* <Text span c="#00adad" style={{marginRight: "auto", fontWeight: 700}}>Jules</Text> */}
-        <Avatar variant="transparent" color="#00adad" radius="0" style={{marginRight: "auto"}}><IconSquareHalf size="xs" /></Avatar>
+        <Avatar variant="transparent" color="#00adad" radius="0" style={{marginRight: "auto", color: "#00adad"}}>
+          <IconSquareHalf size="xs" />
+        </Avatar>
         <Group>
           {contactInfo.map((item: { [key:string]: string | ReactNode | undefined }, index) => (
             <FooterContactLink key={index} text={(item.text as string)} url={(item.url as string)} />

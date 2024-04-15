@@ -16,30 +16,20 @@ const inter = Inter({ subsets: ["latin"] });
 const sectionContentWidth = '90%';
 const sectionContentStyle = {
   width: sectionContentWidth,
-  // border: '1px solid tomato',
-  // background: 'indianred',
   padding: rem(20)
 };
 
-const Header = () => {
-  const headerStyle: React.CSSProperties = {
-    // textAlign: "center"
-    // display: "flex",
-    // width: '80%',
-    border: '2px solid limegreen',
-    // marginBottom: 
-  }
-
-  return (
-    <header style={headerStyle}>
-      <Center>
-        <Container style={sectionContentStyle}>
-          Header
-        </Container>
-      </Center>
-    </header>
-  )
-};
+// const Header = () => {
+//   return (
+//     <header style={{border: "2px solid limegreen"}}>
+//       <Center>
+//         <Container style={sectionContentStyle}>
+//           Header
+//         </Container>
+//       </Center>
+//     </header>
+//   )
+// };
 
 const LogoSvg = () => {
   return (
@@ -57,10 +47,19 @@ const LogoSvg = () => {
 
 const HeaderMobile = () => {
   const [opened, { open, close }] = useDisclosure(false);
-  const navText = ['Home', 'About', 'Project', 'Contact'];
+  const navText = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
+
+  const handleOnClick = () => close();
 
   const navItems = navText.map(label => (
-    <NavLink key={label} label={label} color="black" style={{fontWeight: 700}}/>
+    <NavLink
+      style={{fontWeight: 700}} 
+      color="black"
+      key={label}
+      label={label}
+      href={`#${label.toLowerCase()}`}
+      onClick={handleOnClick}
+      />
   ))
 
   const MobileDrawerMenu = () => {
@@ -74,7 +73,7 @@ const HeaderMobile = () => {
   };
   
   return (
-    <header>
+    <header id="home">
       <Group p="md" style={{width: "90%", margin: "0 auto"}} justify="space-between">
         {/* <Avatar variant="transparent" color="#00adad" radius="0" style={{color: "#00adad"}}>
           <IconSquareHalf size="xs" strokeWidth={2} stroke="#00adad" />
@@ -95,20 +94,8 @@ const Hero = () => {
   };
 
   return (
-    // <Center component="main" style={{border: "1px solid dodgerblue"}}>
-    //   <Container style={sectionContentStyle}>
-    //     <SimpleGrid>
-    //       <Grid>
-    //         <Grid.Col>1</Grid.Col>
-    //         <Grid.Col>2</Grid.Col>
-    //       </Grid>
-    //     </SimpleGrid>
-    //   </Container>
-    // </Center>
-    // ================
     <Center component="section">
       <Stack p="md" style={{width: sectionContentWidth, ...heroStyle}} gap={0}>
-        {/* <Box bg="gray" style={{height: "30%"}}></Box> */}
         <Box
           style={{
             height: "20%",
@@ -116,7 +103,6 @@ const Hero = () => {
           }}/>
         <Box bg="#00adad" pl="md" pb="md" style={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
           <Title order={1} c="white" m="0" lh="1" style={{fontSize: "3rem"}}>Julian</Title>
-          {/* <Divider /> */}
           <Title order={1} c="black" m="0" lh="1" style={{fontSize: "2.75rem"}}>French</Title>
         </Box>
       </Stack>
@@ -124,24 +110,10 @@ const Hero = () => {
   )
 }
 
-// const WhoAmI = () => {
-//   const whoStyle = {
-//     border: '1px solid lightgray'
-//   };
-
-//   return (
-//     <>
-//       <About />
-//       {/* <Divider my="xs" /> */}
-//       <Skills />
-//     </>
-//   )
-// }
-
 const About = () => {
 
   return (
-    <Center component="section">
+    <Center id="about" component="section">
       <Stack style={{...sectionContentStyle}} gap={0}>
         <Title order={3} size="h3">Who</Title>
         <Text>Hello.</Text>
@@ -179,7 +151,7 @@ const Skills = () => {
     ));
 
   return (
-    <Center component="section">
+    <Center id="skills" component="section">
       <Stack style={{...sectionContentStyle}} gap={0}>
         <Title order={3} size="h3">Skills</Title>
         <Stack>
@@ -217,9 +189,6 @@ const Skills = () => {
 }
 
 const Projects = (props: {projectList: {}[]}) => {
-  const projectsStyle = {
-    border: '1px solid gray'
-  };
 
   const ProjectItem = (props: {key: string, title: string, url: string}) => {
     return (
@@ -234,16 +203,14 @@ const Projects = (props: {projectList: {}[]}) => {
     )
   };
 
-  // const projects = props.projectList.map((project: { [key:string]: string}) => {
   const projects = props.projectList.map((item: { [key:string]: string }) => {
-  // const projects = props.projectList.map((project: any) => {
     return (
       <ProjectItem key={item.title} title={item.title} url={item.url} />
     );
   });
 
   return (
-    <Center component="section">
+    <Center id="projects" component="section">
       <Stack style={sectionContentStyle}>
         <Title size="h3">Projects</Title>
         <SimpleGrid spacing="md" cols={{ base: 1, sm: 3 }}>
@@ -254,7 +221,6 @@ const Projects = (props: {projectList: {}[]}) => {
   )
 };
 
-// const projectList: string[] = ['Flag Doyen', 'Mai Globo'];
 const projectList: {}[] = [
   {
     title: 'Flag Doyen',
@@ -266,30 +232,22 @@ const projectList: {}[] = [
   }
 ];
 
-console.log('%cLOOK AT THESE LINKS!!!', 'color:tomato');
-// https://www.pinterest.com/pin/491596115549332325/
-// https://i.pinimg.com/originals/0c/bb/dc/0cbbdc2696c6c524ea261b6aec3240a4.jpg
-
 const contactInfo: { [key:string]: string | ReactNode | undefined }[] = [
   {
     text: "Github",
     url: "https://www.github.com/Jufrench",
-    // icon: <IconBrandGithubFilled />
   },
   {
     text: "LinkedIn",
     url: "https://www.linkedin.com/in/julesfrench/",
-    // icon: <IconBrandLinkedin />
   },
   {
     text: "Email",
     url: "mailto:ju.french@gmail.com",
-    // icon: <IconMailFilled />
   },
   {
     text: "Ko-Fi",
     url: "https://ko-fi.com/moijules",
-    // customIcon: <KofiIcon />
   }
 ]
 
@@ -303,7 +261,6 @@ const Footer = () => {
   };
 
   const footerContentStyle = {
-    // padding: rem(20),
     width: '90%',
   };
 
@@ -312,7 +269,7 @@ const Footer = () => {
   };
 
   return (
-    <Center component="footer" style={footerWrapperStyle}>
+    <Center id="contact" component="footer" style={footerWrapperStyle}>
       <Group p="md" style={footerContentStyle} justify="flex-end">
         {/* <Text span c="#00adad" style={{marginRight: "auto", fontWeight: 700}}>Jules</Text> */}
         {/* <Avatar variant="transparent" color="#00adad" radius="0" style={{marginRight: "auto", color: "#00adad"}}>
@@ -344,7 +301,6 @@ export default function Home() {
       <Stack gap="sm">
         {/* <Space h="sm" /> */}
         <Hero />
-        {/* <WhoAmI /> */}
         <About />
         <Skills />
         <Projects projectList={projectList} />

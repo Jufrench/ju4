@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import Head from "next/head";
 import Image from "next/image";
@@ -18,6 +18,9 @@ const sectionContentStyle = {
   width: sectionContentWidth,
   padding: rem(20)
 };
+const sectionContentTitle = {
+  marginBottom: rem(20)
+};
 
 // const Header = () => {
 //   return (
@@ -33,7 +36,7 @@ const sectionContentStyle = {
 
 const LogoSvg = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-square-half">
+    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none"  stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="icon icon-tabler icons-tabler-outline icon-tabler-square-half">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 4v16" />
       <path d="M3 3m0 2a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2z" />
@@ -45,22 +48,39 @@ const LogoSvg = () => {
   )
 }
 
+const navText = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
+
+const NavItem = (props: {key: string | number, label: string, onClick?: () => void}) => {
+  return (
+    <NavLink
+    style={{fontWeight: 700}} 
+    color="black"
+    key={props.label}
+    label={props.label}
+    href={`#${props.label.toLowerCase()}`}
+    onClick={props.onClick}
+    />
+  )
+};
+
 const HeaderMobile = () => {
   const [opened, { open, close }] = useDisclosure(false);
-  const navText = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
 
   const handleOnClick = () => close();
 
+  // const navItems = navText.map(label => (
+  //   <NavLink
+  //     style={{fontWeight: 700}} 
+  //     color="black"
+  //     key={label}
+  //     label={label}
+  //     href={`#${label.toLowerCase()}`}
+  //     onClick={handleOnClick}
+  //     />
+  // ));
   const navItems = navText.map(label => (
-    <NavLink
-      style={{fontWeight: 700}} 
-      color="black"
-      key={label}
-      label={label}
-      href={`#${label.toLowerCase()}`}
-      onClick={handleOnClick}
-      />
-  ))
+    <NavItem key={label} label={label} onClick={handleOnClick} />
+  ));
 
   const MobileDrawerMenu = () => {
     return (
@@ -73,7 +93,7 @@ const HeaderMobile = () => {
   };
   
   return (
-    <header id="home">
+    <header id="home" style={{border: '1px solid dodgerblue'}}>
       <Group p="md" style={{width: "90%", margin: "0 auto"}} justify="space-between">
         {/* <Avatar variant="transparent" color="#00adad" radius="0" style={{color: "#00adad"}}>
           <IconSquareHalf size="xs" strokeWidth={2} stroke="#00adad" />
@@ -88,10 +108,29 @@ const HeaderMobile = () => {
   )
 };
 
+const HeaderTablet = () => {
+  const navItems = navText.map(title => (
+    <Anchor key={title}>{title}</Anchor>
+  ));
+
+  return (
+    <header style={{border: '1px solid tomato'}}>
+      <Group p="md" style={{ width: "90%", margin: "0 auto"}} justify="space-between">
+        <Avatar variant="transparent" color="#00adad" radius="0" style={{color: "#00adad"}}>
+          <LogoSvg />
+        </Avatar>
+        <Group component="nav">{navItems}</Group>
+      </Group>
+    </header>
+  )
+}
+
 const Hero = () => {
   const heroStyle = {
     height: '400px',
   };
+
+  console.log('%cuse grid rows for skills section', 'color:tomato')
 
   return (
     <Center component="section">
@@ -102,8 +141,20 @@ const Hero = () => {
             background: 'repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.1), rgba(51, 51, 51, 0.1) 7px, lightgray 5px, lightgray 16px)'
           }}/>
         <Box bg="#00adad" pl="md" pb="md" style={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
-          <Title order={1} c="white" m="0" lh="1" style={{fontSize: "3rem"}}>Julian</Title>
-          <Title order={1} c="black" m="0" lh="1" style={{fontSize: "2.75rem"}}>French</Title>
+          <Title
+            aria-label="Julian French Web Developer"
+            order={1}
+            c="black"
+            mb="10"
+            lh="1"
+            style={{fontSize: "3rem", display: "flex", flexDirection: "column"}}>
+            <span>Julian </span>
+            <span>French</span>
+          </Title>
+          <Stack gap={0} component='h2' m="0" lh="1" style={{fontSize: "3rem"}}>
+            <span>Web </span>
+            <span>Developer</span>
+          </Stack>
         </Box>
       </Stack>
     </Center>
@@ -111,11 +162,10 @@ const Hero = () => {
 }
 
 const About = () => {
-
   return (
     <Center id="about" component="section">
       <Stack style={{...sectionContentStyle}} gap={0}>
-        <Title order={3} size="h3">Who</Title>
+        <Title order={3} size="h3" style={sectionContentTitle}>Who</Title>
         <Text>Hello.</Text>
         <Text>I'm Web Developer & aspiring Full-Stack Developer. My traditional educational & collegiate background is in Music & Foreign Languages. I decided to make a career out of Web Development when I allowed myself to follow my curiosities about coding.</Text>
         <Divider my="xs" />
@@ -186,7 +236,60 @@ const Skills = () => {
       </Stack>
     </Center>
   )
-}
+};
+
+const Skills2 = () => {
+  const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL']
+    .map((lang, index, arr) => (
+      <React.Fragment key={index}>
+        <Text style={{lineHeight: 1}} span>{lang}</Text>
+        {index !== arr.length - 1 && <Divider orientation="vertical" />}
+      </React.Fragment>
+    ));
+
+  const librariesAndFrameworks = ['React', 'Next.js', 'Gatsby', 'Bootstrap', 'Mantine']
+    .map((lib, index, arr) => (
+      <React.Fragment key={index}>
+        <Text style={{lineHeight: 1}} span>{lib}</Text>
+        {index !== arr.length - 1 && <Divider orientation="vertical" />}
+      </React.Fragment>
+    ));
+
+  const tools = ['Git', 'Github', 'Vercel', 'Netlify']
+    .map((tool, index, arr) => (
+      <React.Fragment key={index}>
+        <Text style={{lineHeight: 1}} span>{tool}</Text>
+        {index !== arr.length - 1 && <Divider orientation="vertical" />}
+      </React.Fragment>
+    ));
+
+  const SkillsSection = (props: {title: string, skills: React.JSX.Element[]}) => {
+    const sectionStyle = {
+      background: '#f7f8f5',
+      padding: rem(20)
+    };
+
+    return (
+      <Stack style={sectionStyle} gap={7}>
+        <Title order={5} style={{marginBottom: rem(6)}}>{props.title}</Title>
+        <Group gap="xs">{props.skills}</Group>
+      </Stack>
+    );
+  }
+
+  return (
+    <Center id="skills" component="section">
+      <Stack style={{...sectionContentStyle}} gap={0}>
+        <Title order={3} size="h3" style={sectionContentTitle}>Skills</Title>
+        <Stack>
+          <SkillsSection title={"Languages"} skills={languages} />
+          <SkillsSection title={"Libraries & Frameworks"} skills={librariesAndFrameworks} />
+          <SkillsSection title={"Tools"} skills={tools} />
+        </Stack>
+      </Stack>
+    </Center>
+  );
+};
 
 const Projects = (props: {projectList: {}[]}) => {
 
@@ -212,7 +315,7 @@ const Projects = (props: {projectList: {}[]}) => {
   return (
     <Center id="projects" component="section">
       <Stack style={sectionContentStyle}>
-        <Title size="h3">Projects</Title>
+        <Title size="h3" style={sectionContentTitle}>Projects</Title>
         <SimpleGrid spacing="md" cols={{ base: 1, sm: 3 }}>
           {projects}
         </SimpleGrid>
@@ -289,6 +392,7 @@ const Footer = () => {
 };
 
 export default function Home() {
+  const matches = useMediaQuery('(min-width: 47.5em)');
   return (
     <>
       <Head>
@@ -297,12 +401,13 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <HeaderMobile />
+      {matches ? <HeaderTablet /> : <HeaderMobile />}
       <Stack gap="sm">
         {/* <Space h="sm" /> */}
         <Hero />
         <About />
-        <Skills />
+        {/* <Skills /> */}
+        <Skills2 />
         <Projects projectList={projectList} />
         <Footer />
       </Stack>

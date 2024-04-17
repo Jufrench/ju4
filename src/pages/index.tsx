@@ -135,11 +135,6 @@ const Hero = () => {
   return (
     <Center component="section">
       <Stack p="md" style={{width: sectionContentWidth, ...heroStyle}} gap={0}>
-        <Box
-          style={{
-            height: "20%",
-            background: 'repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.1), rgba(51, 51, 51, 0.1) 7px, lightgray 5px, lightgray 16px)'
-          }}/>
         <Box bg="#00adad" pl="md" pb="md" style={{flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "flex-end"}}>
           <Title
             aria-label="Julian French Web Developer"
@@ -156,6 +151,11 @@ const Hero = () => {
             <span>Developer</span>
           </Stack>
         </Box>
+        <Box
+          style={{
+            height: "20%",
+            background: 'repeating-linear-gradient(45deg, rgba(51, 51, 51, 0.1), rgba(51, 51, 51, 0.1) 7px, lightgray 5px, lightgray 16px)'
+          }}/>
       </Stack>
     </Center>
   )
@@ -175,7 +175,7 @@ const About = () => {
   )
 }
 
-const Skills = () => {
+const SkillsOld = () => {
   const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL']
     .map((lang, index, arr) => (
       <React.Fragment key={index}>
@@ -238,7 +238,7 @@ const Skills = () => {
   )
 };
 
-const Skills2 = () => {
+const Skills = () => {
   const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL']
     .map((lang, index, arr) => (
       <React.Fragment key={index}>
@@ -406,8 +406,8 @@ export default function Home() {
         {/* <Space h="sm" /> */}
         <Hero />
         <About />
-        {/* <Skills /> */}
-        <Skills2 />
+        {/* <SkillsOld /> */}
+        <Skills />
         <Projects projectList={projectList} />
         <Footer />
       </Stack>

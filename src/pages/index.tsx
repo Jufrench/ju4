@@ -48,19 +48,18 @@ const LogoSvg = () => {
   )
 }
 
-const navText = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
+const navItemsText = ['Home', 'About', 'Skills', 'Projects', 'Contact'];
 
-const NavItem = (props: {key: string | number, label: string, onClick?: () => void}) => {
+const MobileNavItem = (props: {key: string | number, label: string, onClick?: () => void}) => {
   return (
     <NavLink
-    style={{fontWeight: 700}} 
-    color="black"
-    key={props.label}
-    label={props.label}
-    href={`#${props.label.toLowerCase()}`}
-    onClick={props.onClick}
-    />
-  )
+      style={{fontWeight: 700}} 
+      color="black"
+      key={props.label}
+      label={props.label}
+      href={`#${props.label.toLowerCase()}`}
+      onClick={props.onClick} />
+  );
 };
 
 const HeaderMobile = () => {
@@ -78,8 +77,8 @@ const HeaderMobile = () => {
   //     onClick={handleOnClick}
   //     />
   // ));
-  const navItems = navText.map(label => (
-    <NavItem key={label} label={label} onClick={handleOnClick} />
+  const navItems = navItemsText.map(label => (
+    <MobileNavItem key={label} label={label} onClick={handleOnClick} />
   ));
 
   const MobileDrawerMenu = () => {
@@ -93,7 +92,7 @@ const HeaderMobile = () => {
   };
   
   return (
-    <header id="home" style={{border: '1px solid dodgerblue'}}>
+    <header id="home">
       <Group p="md" style={{width: "90%", margin: "0 auto"}} justify="space-between">
         {/* <Avatar variant="transparent" color="#00adad" radius="0" style={{color: "#00adad"}}>
           <IconSquareHalf size="xs" strokeWidth={2} stroke="#00adad" />
@@ -108,13 +107,35 @@ const HeaderMobile = () => {
   )
 };
 
-const HeaderTablet = () => {
-  const navItems = navText.map(title => (
-    <Anchor key={title}>{title}</Anchor>
-  ));
+const TabletNavItem = (props: {key: string, title: string}) => {
+  const navItemStyle: React.CSSProperties = {
+    padding: `${rem(4)} ${rem(6)}`,
+    fontWeight: 700,
+    transition: 'all 1s',
+    position: 'relative'
+  };
+
+  const [isHovered, setIsHovered] = React.useState<boolean>(false);
 
   return (
-    <header style={{border: '1px solid tomato'}}>
+    <Anchor
+      className={`header-tablet-nav-item ${isHovered ? 'hover' : ''}`}
+      c="black"
+      style={navItemStyle}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      href={`#${props.title.toLowerCase()}`}
+      >
+        {props.title}
+      </Anchor>
+  )
+};
+
+const HeaderTablet = () => {
+  const navItems = navItemsText.map(title => <TabletNavItem key={title} title={title} />);
+
+  return (
+    <header className="header-tablet">
       <Group p="md" style={{ width: "90%", margin: "0 auto"}} justify="space-between">
         <Avatar variant="transparent" color="#00adad" radius="0" style={{color: "#00adad"}}>
           <LogoSvg />
@@ -175,68 +196,68 @@ const About = () => {
   )
 }
 
-const SkillsOld = () => {
-  const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL']
-    .map((lang, index, arr) => (
-      <React.Fragment key={index}>
-        <Text style={{lineHeight: 1}} span>{lang}</Text>
-        {index !== arr.length - 1 && <Divider orientation="vertical" />}
-      </React.Fragment>
-    ));
+// const SkillsOld = () => {
+//   const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL']
+//     .map((lang, index, arr) => (
+//       <React.Fragment key={index}>
+//         <Text style={{lineHeight: 1}} span>{lang}</Text>
+//         {index !== arr.length - 1 && <Divider orientation="vertical" />}
+//       </React.Fragment>
+//     ));
 
-  const librariesAndFrameworks = ['React', 'Next.js', 'Gatsby', 'Bootstrap', 'Mantine']
-    .map((lib, index, arr) => (
-      <React.Fragment key={index}>
-        <Text style={{lineHeight: 1}} span>{lib}</Text>
-        {index !== arr.length - 1 && <Divider orientation="vertical" />}
-      </React.Fragment>
-    ));
+//   const librariesAndFrameworks = ['React', 'Next.js', 'Gatsby', 'Bootstrap', 'Mantine']
+//     .map((lib, index, arr) => (
+//       <React.Fragment key={index}>
+//         <Text style={{lineHeight: 1}} span>{lib}</Text>
+//         {index !== arr.length - 1 && <Divider orientation="vertical" />}
+//       </React.Fragment>
+//     ));
 
-  const tools = ['Git', 'Github', 'Vercel', 'Netlify']
-    .map((tool, index, arr) => (
-      <React.Fragment key={index}>
-        <Text style={{lineHeight: 1}} span>{tool}</Text>
-        {index !== arr.length - 1 && <Divider orientation="vertical" />}
-      </React.Fragment>
-    ));
+//   const tools = ['Git', 'Github', 'Vercel', 'Netlify']
+//     .map((tool, index, arr) => (
+//       <React.Fragment key={index}>
+//         <Text style={{lineHeight: 1}} span>{tool}</Text>
+//         {index !== arr.length - 1 && <Divider orientation="vertical" />}
+//       </React.Fragment>
+//     ));
 
-  return (
-    <Center id="skills" component="section">
-      <Stack style={{...sectionContentStyle}} gap={0}>
-        <Title order={3} size="h3">Skills</Title>
-        <Stack>
-          <Box>
-            <Divider
-              my="xs"
-              labelPosition="left"
-              label={
-                <Text c="gray">Languages</Text>
-              } />
-            <Group gap="xs">{languages}</Group>
-          </Box>
-          <Box>
-            <Divider
-              my="xs"
-              labelPosition="left"
-              label={
-                <Text>Libraries & Frameworks</Text>
-              } />
-            <Group gap="xs">{librariesAndFrameworks}</Group>
-          </Box>
-          <Box>
-            <Divider
-              my="xs"
-              labelPosition="left"
-              label={
-                <Text>Tools</Text>
-              } />
-            <Group gap="xs">{tools}</Group>
-          </Box>
-        </Stack>
-      </Stack>
-    </Center>
-  )
-};
+//   return (
+//     <Center id="skills" component="section">
+//       <Stack style={{...sectionContentStyle}} gap={0}>
+//         <Title order={3} size="h3">Skills</Title>
+//         <Stack>
+//           <Box>
+//             <Divider
+//               my="xs"
+//               labelPosition="left"
+//               label={
+//                 <Text c="gray">Languages</Text>
+//               } />
+//             <Group gap="xs">{languages}</Group>
+//           </Box>
+//           <Box>
+//             <Divider
+//               my="xs"
+//               labelPosition="left"
+//               label={
+//                 <Text>Libraries & Frameworks</Text>
+//               } />
+//             <Group gap="xs">{librariesAndFrameworks}</Group>
+//           </Box>
+//           <Box>
+//             <Divider
+//               my="xs"
+//               labelPosition="left"
+//               label={
+//                 <Text>Tools</Text>
+//               } />
+//             <Group gap="xs">{tools}</Group>
+//           </Box>
+//         </Stack>
+//       </Stack>
+//     </Center>
+//   )
+// };
 
 const Skills = () => {
   const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL']

@@ -2,7 +2,7 @@ html {
   scroll-behavior: smooth;
 }
 
-.header-tablet .header-tablet-nav-item:before {
+/* .header-tablet .header-tablet-nav-item:before {
   position: absolute;
   content: '';
   left: 0;
@@ -18,7 +18,7 @@ html {
 
 .header-tablet .header-tablet-nav-item.hover:before {
   transform: scaleX(1);
-}
+} */
 
 /* :root {
   --max-width: 1100px;

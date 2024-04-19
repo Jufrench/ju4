@@ -5,10 +5,10 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 // import styles from "@/styles/Home.module.css";
 
-import { rem, Center, Container, SimpleGrid, Grid, Space, Box,
-  ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card, Drawer, NavLink, Avatar } from '@mantine/core';
+import { rem, Center, Container, SimpleGrid, Grid, Space, Box, Blockquote,
+  ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card, Paper, Drawer, NavLink, Avatar } from '@mantine/core';
 import { useMediaQuery, useDisclosure } from '@mantine/hooks';
-import { IconMenu2, IconSquareHalf, IconArrowBigRight } from '@tabler/icons-react';
+import { IconMenu2, IconSquareHalf, IconArrowBigRight, IconArrowRight, IconInfoCircle, IconFlag, IconWorld } from '@tabler/icons-react';
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -111,19 +111,28 @@ const TabletNavItem = (props: {key: string, title: string}) => {
   const navItemStyle: React.CSSProperties = {
     padding: `${rem(4)} ${rem(6)}`,
     fontWeight: 700,
-    transition: 'all 1s',
-    position: 'relative'
+    // transition: 'all 1s',
+    // position: 'relative'
   };
 
   const [isHovered, setIsHovered] = React.useState<boolean>(false);
 
+  // return (
+  //   <Anchor
+  //     className={`header-tablet-nav-item ${isHovered ? 'hover' : ''}`}
+  //     c="black"
+  //     style={navItemStyle}
+  //     onMouseEnter={() => setIsHovered(true)}
+  //     onMouseLeave={() => setIsHovered(false)}
+  //     href={`#${props.title.toLowerCase()}`}
+  //     >
+  //       {props.title}
+  //     </Anchor>
+  // )
   return (
     <Anchor
-      className={`header-tablet-nav-item ${isHovered ? 'hover' : ''}`}
       c="black"
       style={navItemStyle}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
       href={`#${props.title.toLowerCase()}`}
       >
         {props.title}
@@ -260,7 +269,7 @@ const About = () => {
 // };
 
 const Skills = () => {
-  const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL']
+  const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL', 'Java']
     .map((lang, index, arr) => (
       <React.Fragment key={index}>
         <Text style={{lineHeight: 1}} span>{lang}</Text>
@@ -286,7 +295,7 @@ const Skills = () => {
 
   const SkillsSection = (props: {title: string, skills: React.JSX.Element[]}) => {
     const sectionStyle = {
-      background: '#f7f8f5',
+      background: '#f6f6f6f6',
       padding: rem(20)
     };
 
@@ -312,24 +321,67 @@ const Skills = () => {
   );
 };
 
+const ProjectCardMobile = (props: {title: string, url: string}) => {
+  return (
+    <Paper p={rem(16)} style={{border: "1px solid gray", borderRadius: 0}}>
+      <Group justify="space-between">
+        <Title order={4} size="h4">{props.title}</Title>
+        <ActionIcon component="a" href={props.url} target="_blank" radius={0} color="black" variant="subtle">
+          <IconArrowBigRight />
+        </ActionIcon>
+      </Group>
+    </Paper>
+  );
+}
+
+const ProjectCardTablet = (props: {title: string, url: string, icon?: ReactNode}) => {
+  console.log('props:', props)
+  return (
+    <Paper p={rem(16)} style={{border: "1px solid gray", borderRadius: 0}}>
+      <Group justify="flex-start">
+        <Avatar>
+          {props.icon}
+        </Avatar>
+        <Title order={4} size="h4">{props.title}</Title>
+        <ActionIcon component="a" href={props.url} target="_blank" radius={0} color="black" variant="subtle" style={{marginLeft: "auto"}}>
+          <IconArrowBigRight />
+        </ActionIcon>
+      </Group>
+    </Paper>
+  );
+}
+
 const Projects = (props: {projectList: {}[]}) => {
 
-  const ProjectItem = (props: {key: string, title: string, url: string}) => {
-    return (
-      <Card component='a' href={props.url} target="_blank" style={{border: "1px solid gray", borderRadius: 0}}>
-        <Group justify="space-between">
-          <Title size="h5" style={{color: "gray"}}>{props.title}</Title>
-          {/* <ActionIcon component='a' variant='light' color="gray"> */}
-            <IconArrowBigRight color="gray" />
-          {/* </ActionIcon> */}
-        </Group>
-      </Card>
-    )
-  };
+  // const ProjectItem = (props: {key: string, title: string, url: string}) => {
+  //   return (
+  //     <Card component='a' href={props.url} target="_blank" style={{border: "1px solid gray", borderRadius: 0}}>
+  //       <Group justify="space-between">
+  //         <Title size="h5" style={{color: "gray"}}>{props.title}</Title>
+  //         {/* <ActionIcon component='a' variant='light' color="gray"> */}
+  //           <IconArrowBigRight color="gray" />
+  //         {/* </ActionIcon> */}
+  //       </Group>
+  //     </Card>
+  //   )
+  // };
 
-  const projects = props.projectList.map((item: { [key:string]: string }) => {
+  // const projects = props.projectList.map((item: { [key:string]: string }) => {
+  //   return (
+  //     <ProjectItem key={item.title} title={item.title} url={item.url} />
+  //   );
+  // });
+
+  const matchesTablet = useMediaQuery('(min-width: 47.5em)');
+
+
+  const projects2 = props.projectList.map((item: { [key:string]: string }) => {
     return (
-      <ProjectItem key={item.title} title={item.title} url={item.url} />
+      <React.Fragment key={item.title}>
+        {matchesTablet ?
+          <ProjectCardTablet title={item.title} url={item.url} icon={item.icon} /> :
+          <ProjectCardMobile title={item.title} url={item.url} />}
+      </React.Fragment>
     );
   });
 
@@ -338,7 +390,8 @@ const Projects = (props: {projectList: {}[]}) => {
       <Stack style={sectionContentStyle}>
         <Title size="h3" style={sectionContentTitle}>Projects</Title>
         <SimpleGrid spacing="md" cols={{ base: 1, sm: 3 }}>
-          {projects}
+          {/* {projects} */}
+          {projects2}
         </SimpleGrid>
       </Stack>
     </Center>
@@ -348,13 +401,26 @@ const Projects = (props: {projectList: {}[]}) => {
 const projectList: {}[] = [
   {
     title: 'Flag Doyen',
-    url: 'https://flagdoyen.vercel.app/'
+    url: 'https://flagdoyen.vercel.app/',
+    icon: <IconFlag />
   },
   {
     title: 'Mai Globo',
-    url: 'https://maiglobo.vercel.app/'
+    url: 'https://maiglobo.vercel.app/',
+    icon: <IconWorld />
   }
 ];
+
+// function Quote() {
+//   const icon = <IconInfoCircle />;
+//   return (
+//     <Center>
+//       <Blockquote color="#00adad" style={sectionContentStyle} cite="– Ella Fitzgerald" icon={icon} mb="md">
+//         Just don’t give up what you’re trying to do. Where there is love and inspiration, I don’t think you can go wrong.
+//       </Blockquote>
+//     </Center>
+//   );
+// }
 
 const contactInfo: { [key:string]: string | ReactNode | undefined }[] = [
   {
@@ -413,7 +479,7 @@ const Footer = () => {
 };
 
 export default function Home() {
-  const matches = useMediaQuery('(min-width: 47.5em)');
+  const matchesTablet = useMediaQuery('(min-width: 47.5em)');
   return (
     <>
       <Head>
@@ -422,7 +488,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {matches ? <HeaderTablet /> : <HeaderMobile />}
+      {matchesTablet ? <HeaderTablet /> : <HeaderMobile />}
       <Stack gap="sm">
         {/* <Space h="sm" /> */}
         <Hero />
@@ -430,6 +496,7 @@ export default function Home() {
         {/* <SkillsOld /> */}
         <Skills />
         <Projects projectList={projectList} />
+        {/* <Quote /> */}
         <Footer />
       </Stack>
     </>

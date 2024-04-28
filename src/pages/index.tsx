@@ -6,9 +6,9 @@ import { Inter } from "next/font/google";
 // import styles from "@/styles/Home.module.css";
 
 import { rem, Center, Container, SimpleGrid, Grid, Space, Box, Blockquote,
-  ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card, Paper, Drawer, NavLink, Avatar } from '@mantine/core';
+  ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card, Paper, Drawer, NavLink, Avatar, Accordion, List } from '@mantine/core';
 import { useMediaQuery, useDisclosure } from '@mantine/hooks';
-import { IconMenu2, IconSquareHalf, IconArrowBigRight, IconArrowRight, IconInfoCircle, IconFlag, IconWorld } from '@tabler/icons-react';
+import { IconMenu2, IconSquareHalf, IconArrowBigRight, IconArrowRight, IconInfoCircle, IconFlagFilled, IconWorld, IconCircleFilled } from '@tabler/icons-react';
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -191,15 +191,38 @@ const Hero = () => {
   )
 }
 
+const degreeCourses = [
+
+];
+
+const currentlyEnrolled = ['WEB 110: HTML & CSS', 'CIS 260: Database Management']
+
 const About = () => {
   return (
     <Center id="about" component="section">
       <Stack style={{...sectionContentStyle}} gap={0}>
         <Title order={3} size="h3" style={sectionContentTitle}>Who</Title>
         <Text>Hello.</Text>
-        <Text>I'm Web Developer & aspiring Full-Stack Developer. My traditional educational & collegiate background is in Music & Foreign Languages. I decided to make a career out of Web Development when I allowed myself to follow my curiosities about coding.</Text>
+        <Text>I'm Web Developer & aspiring Full-Stack Developer. My educational & collegiate background is in Music & Foreign Languages, with a Major in French & Italian and a minor in vocal music. I decided to make a career out of Web Development when I allowed myself to follow my curiosities about coding.</Text>
         <Divider my="xs" />
-        <Text>Currently I'm pursuing an associate's degree in Computer Information Systems while working full time as a Front-end Developer.</Text>
+        <Text>Currently I'm pursuing an associate's degree in Computer Information Systems @ JCCC while working full time as a Front-end Developer.</Text>
+        <Divider my="xs" />
+        <Text fw="bold">Check out my degree progress</Text>
+        <Group gap="xs">
+          <Avatar variant="outline" size="xs" color="tomato"><IconCircleFilled /></Avatar>
+          <Text>Currently enrolled in:</Text>
+        </Group>
+        <List pl="xl">
+          <>
+            {currentlyEnrolled.map(course => <List.Item>{course}</List.Item>)}
+          </>
+        </List>
+        {/* <Accordion defaultValue="Courses Remaining">
+          <Accordion.Item value="hello">
+            <Accordion.Control>hello</Accordion.Control>
+            <Accordion.Panel>Hello description</Accordion.Panel>
+          </Accordion.Item>
+        </Accordion> */}
       </Stack>
     </Center>
   )
@@ -321,12 +344,22 @@ const Skills = () => {
   );
 };
 
-const ProjectCardMobile = (props: {title: string, url: string}) => {
+const ProjectCardMobile = (props: {title: string, url: string, icon?: ReactNode}) => {
+  console.log('icon:', props)
   return (
     <Paper p={rem(16)} style={{border: "1px solid gray", borderRadius: 0}}>
       <Group justify="space-between">
+        <Avatar>
+          {props.icon}
+        </Avatar>
         <Title order={4} size="h4">{props.title}</Title>
-        <ActionIcon component="a" href={props.url} target="_blank" radius={0} color="black" variant="subtle">
+        <ActionIcon
+          component="a"
+          href={props.url}
+          target="_blank" radius={0}
+          color="black"
+          variant="subtle"
+          ml="auto">
           <IconArrowBigRight />
         </ActionIcon>
       </Group>
@@ -334,16 +367,22 @@ const ProjectCardMobile = (props: {title: string, url: string}) => {
   );
 }
 
-const ProjectCardTablet = (props: {title: string, url: string, icon?: ReactNode}) => {
-  console.log('props:', props)
+const ProjectCardTablet = (props: {title: string, url: string, icon?: ReactNode, iconHoverColor: string}) => {
+  const [isHovered, setIsHovered] = React.useState<boolean>(false);
+
   return (
-    <Paper p={rem(16)} style={{border: "1px solid gray", borderRadius: 0}}>
-      <Group justify="flex-start">
-        <Avatar>
+    <Paper
+      p={rem(16)}
+      style={{border: "1px solid gray", borderRadius: 0}}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}>
+      <Group justify="flex-start" wrap="nowrap">
+        <Avatar
+          color={isHovered ? props.iconHoverColor : 'gray'}>
           {props.icon}
         </Avatar>
         <Title order={4} size="h4">{props.title}</Title>
-        <ActionIcon component="a" href={props.url} target="_blank" radius={0} color="black" variant="subtle" style={{marginLeft: "auto"}}>
+        <ActionIcon component="a" href={props.url} target="_blank" radius={0} color="black" variant="subtle" ml="auto">
           <IconArrowBigRight />
         </ActionIcon>
       </Group>
@@ -379,8 +418,12 @@ const Projects = (props: {projectList: {}[]}) => {
     return (
       <React.Fragment key={item.title}>
         {matchesTablet ?
-          <ProjectCardTablet title={item.title} url={item.url} icon={item.icon} /> :
-          <ProjectCardMobile title={item.title} url={item.url} />}
+          <ProjectCardTablet
+            title={item.title}
+            url={item.url}
+            icon={item.icon}
+            iconHoverColor={item.iconHoverColor} /> :
+          <ProjectCardMobile title={item.title} url={item.url} icon={item.icon} />}
       </React.Fragment>
     );
   });
@@ -402,12 +445,14 @@ const projectList: {}[] = [
   {
     title: 'Flag Doyen',
     url: 'https://flagdoyen.vercel.app/',
-    icon: <IconFlag />
+    icon: <IconFlagFilled />,
+    iconHoverColor: '#2BDD66'
   },
   {
     title: 'Mai Globo',
     url: 'https://maiglobo.vercel.app/',
-    icon: <IconWorld />
+    icon: <IconWorld />,
+    iconHoverColor: '#00B5FF'
   }
 ];
 

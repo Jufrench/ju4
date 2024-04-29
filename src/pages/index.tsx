@@ -8,7 +8,8 @@ import { Inter } from "next/font/google";
 import { rem, Center, Container, SimpleGrid, Grid, Space, Box, Blockquote,
   ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card, Paper, Drawer, NavLink, Avatar, Accordion, List } from '@mantine/core';
 import { useMediaQuery, useDisclosure } from '@mantine/hooks';
-import { IconMenu2, IconSquareHalf, IconArrowBigRight, IconArrowRight, IconInfoCircle, IconFlagFilled, IconWorld, IconCircleFilled } from '@tabler/icons-react';
+import { IconMenu2, IconSquareHalf, IconArrowBigRight, IconArrowRight, IconInfoCircle,
+          IconFlagFilled, IconWorld, IconCircleFilled } from '@tabler/icons-react';
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -115,7 +116,7 @@ const TabletNavItem = (props: {key: string, title: string}) => {
     // position: 'relative'
   };
 
-  const [isHovered, setIsHovered] = React.useState<boolean>(false);
+  // const [isHovered, setIsHovered] = React.useState<boolean>(false);
 
   // return (
   //   <Anchor
@@ -197,6 +198,33 @@ const degreeCourses = [
 
 const currentlyEnrolled = ['WEB 110: HTML & CSS', 'CIS 260: Database Management']
 
+const PulseCircle = () => {
+  const circleStyles: React.CSSProperties = {
+    background: 'red',
+    borderRadius: '50%',
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    left: 0,
+    animation: 'pulse 2s infinite cubic-bezier(.36, .11, .89, .32)'
+  };
+
+  const containerStyles: React.CSSProperties = {
+    position: "relative",
+    width: '30px',
+    height: '30px'
+  };
+
+  return (
+    <Box style={containerStyles}>
+      <Box style={{...circleStyles, animationDelay: "-3s"}}></Box>
+      <Box style={{...circleStyles, animationDelay: "-2s"}}></Box>
+      <Box style={{...circleStyles, animationDelay: "-1s"}}></Box>
+      <Box style={{...circleStyles, animationDelay: "0s"}}></Box>
+    </Box>
+  )
+}
+
 const About = () => {
   return (
     <Center id="about" component="section">
@@ -208,11 +236,11 @@ const About = () => {
         <Text>Currently I'm pursuing an associate's degree in Computer Information Systems @ JCCC while working full time as a Front-end Developer.</Text>
         <Divider my="xs" />
         <Text fw="bold">Check out my degree progress</Text>
-        <Group gap="xs">
-          <Avatar variant="outline" size="xs" color="tomato"><IconCircleFilled /></Avatar>
+        <Group gap={3}>
+          <PulseCircle />
           <Text>Currently enrolled in:</Text>
         </Group>
-        <List pl="xl">
+        <List ml={40}>
           <>
             {currentlyEnrolled.map(course => <List.Item>{course}</List.Item>)}
           </>
@@ -345,7 +373,7 @@ const Skills = () => {
 };
 
 const ProjectCardMobile = (props: {title: string, url: string, icon?: ReactNode}) => {
-  console.log('icon:', props)
+
   return (
     <Paper p={rem(16)} style={{border: "1px solid gray", borderRadius: 0}}>
       <Group justify="space-between">
@@ -369,6 +397,9 @@ const ProjectCardMobile = (props: {title: string, url: string, icon?: ReactNode}
 
 const ProjectCardTablet = (props: {title: string, url: string, icon?: ReactNode, iconHoverColor: string}) => {
   const [isHovered, setIsHovered] = React.useState<boolean>(false);
+  const isHoveredStyle: React.CSSProperties = {
+    transform: 'scale(1.2, 1.2)',
+  };
 
   return (
     <Paper
@@ -377,8 +408,7 @@ const ProjectCardTablet = (props: {title: string, url: string, icon?: ReactNode,
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}>
       <Group justify="flex-start" wrap="nowrap">
-        <Avatar
-          color={isHovered ? props.iconHoverColor : 'gray'}>
+        <Avatar color={isHovered ? props.iconHoverColor : 'gray'} style={isHovered ? isHoveredStyle : {}}>
           {props.icon}
         </Avatar>
         <Title order={4} size="h4">{props.title}</Title>
@@ -452,7 +482,7 @@ const projectList: {}[] = [
     title: 'Mai Globo',
     url: 'https://maiglobo.vercel.app/',
     icon: <IconWorld />,
-    iconHoverColor: '#00B5FF'
+    iconHoverColor: '#00BFFF'
   }
 ];
 

@@ -192,11 +192,12 @@ const Hero = () => {
   )
 }
 
-const degreeCourses = [
+const degreeClasses = [
 
 ];
 
-const currentlyEnrolled = ['WEB 110: HTML & CSS', 'CIS 260: Database Management']
+// const currentlyEnrolled = ['WEB 110: HTML & CSS', 'CIS 260: Database Management'];
+const currentlyEnrolled = ['CIS 142: Beginning Programming using Python', 'WEB 114: Web Scripting: JavaScript I'];
 
 const PulseCircle = () => {
   const circleStyles: React.CSSProperties = {
@@ -229,7 +230,7 @@ const About = () => {
   return (
     <Center id="about" component="section">
       <Stack style={{...sectionContentStyle}} gap={0}>
-        <Title order={3} size="h3" style={sectionContentTitle}>Who</Title>
+        <Title order={3} size="h3" style={sectionContentTitle}>Who Am I?</Title>
         <Text>Hello.</Text>
         <Text>I'm Web Developer & aspiring Full-Stack Developer. My educational & collegiate background is in Music & Foreign Languages, with a Major in French & Italian and a minor in vocal music. I decided to make a career out of Web Development when I allowed myself to follow my curiosities about coding.</Text>
         <Divider my="xs" />
@@ -245,12 +246,16 @@ const About = () => {
             {currentlyEnrolled.map(course => <List.Item>{course}</List.Item>)}
           </>
         </List>
-        {/* <Accordion defaultValue="Courses Remaining">
-          <Accordion.Item value="hello">
-            <Accordion.Control>hello</Accordion.Control>
-            <Accordion.Panel>Hello description</Accordion.Panel>
+        <Accordion defaultValue="Courses Remaining">
+          <Accordion.Item value="remaining">
+            <Accordion.Control>Classes</Accordion.Control>
+            <Accordion.Panel>
+              Remaining
+              <Divider my="xs" />
+              Taken
+            </Accordion.Panel>
           </Accordion.Item>
-        </Accordion> */}
+        </Accordion>
       </Stack>
     </Center>
   )

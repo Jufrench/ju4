@@ -235,7 +235,7 @@ const About = () => {
         <Text>I'm Web Developer & aspiring Full-Stack Developer. My educational & collegiate background is in Music & Foreign Languages, with a Major in French & Italian and a minor in vocal music. I decided to make a career out of Web Development when I allowed myself to follow my curiosities about coding.</Text>
         <Divider my="xs" />
         <Text>Currently I'm pursuing an associate's degree in Computer Information Systems @ JCCC while working full time as a Front-end Developer.</Text>
-        <Divider my="xs" />
+        {/* <Divider my="xs" /> */}
         <Text fw="bold">Check out my degree progress</Text>
         <Group gap={3}>
           <PulseCircle />

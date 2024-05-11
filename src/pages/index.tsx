@@ -192,12 +192,26 @@ const Hero = () => {
   )
 }
 
-const degreeClasses = [
-
-];
+const degreeClasses = [];
 
 // const currentlyEnrolled = ['WEB 110: HTML & CSS', 'CIS 260: Database Management'];
 const currentlyEnrolled = ['CIS 142: Beginning Programming using Python', 'WEB 114: Web Scripting: JavaScript I'];
+const classesRemaining = [
+  'CIS 204: UNIX Scripting and Utilities',
+  'CIS 242: Introduction to System Design and Analysis',
+  'Server Scripting: PHP with MySQL (elective)',
+  'CS 255: Basic Data Structures Using Java',
+  'CIS 240: Advanced Topics in Java (elective)',
+  'CIS 264: Application Development and Programming',
+  'CIS 275: Web-Enabled Database Programming'
+];
+const classesTaken = [
+  'WEB 110: HTML & CSS',
+  'IT 140: Introduction to Networks',
+  'CS 205: Concepts of Programming Algorithms using Java',
+  'CS 235: Object-Oriented Programming Using C++',
+  'CIS 260: Database Management'
+]
 
 const PulseCircle = () => {
   const circleStyles: React.CSSProperties = {
@@ -241,18 +255,27 @@ const About = () => {
           <PulseCircle />
           <Text>Currently enrolled in:</Text>
         </Group>
-        <List ml={40}>
+        <List ml={27}>
           <>
             {currentlyEnrolled.map(course => <List.Item>{course}</List.Item>)}
           </>
         </List>
         <Accordion defaultValue="Courses Remaining">
           <Accordion.Item value="remaining">
-            <Accordion.Control>Classes</Accordion.Control>
+            <Accordion.Control>Classes Remaining/Taken</Accordion.Control>
             <Accordion.Panel>
-              Remaining
-              <Divider my="xs" />
-              Taken
+              <Text>Remaining</Text>
+              <List ml="sm">
+                <>
+                  {classesRemaining.map(course => <List.Item>{course}</List.Item>)}
+                </>
+              </List>
+              <Text>Taken</Text>
+              <List ml="sm">
+                <>
+                  {classesTaken.map(course => <List.Item>{course}</List.Item>)}
+                </>
+              </List>
             </Accordion.Panel>
           </Accordion.Item>
         </Accordion>

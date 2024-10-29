@@ -192,26 +192,27 @@ const Hero = () => {
   )
 }
 
-const degreeClasses = [];
-
-// const currentlyEnrolled = ['WEB 110: HTML & CSS', 'CIS 260: Database Management'];
-const currentlyEnrolled = ['CIS 142: Beginning Programming using Python', 'WEB 114: Web Scripting: JavaScript I'];
-const classesRemaining = [
+const currentlyEnrolled = [
   'CIS 204: UNIX Scripting and Utilities',
   'CIS 242: Introduction to System Design and Analysis',
   'Server Scripting: PHP with MySQL (elective)',
-  'CS 255: Basic Data Structures Using Java',
-  'CIS 240: Advanced Topics in Java (elective)',
-  'CIS 264: Application Development and Programming',
   'CIS 275: Web-Enabled Database Programming'
+];
+const classesRemaining = [
+  'CS 250: Basic Data Structures using C++',
+  'CIS 264: Application Development and Programming',
+  'CS 202: Concepts of Programming Algorithms using Python',
+  'WEB 124 Web Scripting: JavaScript II',
 ];
 const classesTaken = [
   'WEB 110: HTML & CSS',
   'IT 140: Introduction to Networks',
   'CS 205: Concepts of Programming Algorithms using Java',
   'CS 235: Object-Oriented Programming Using C++',
-  'CIS 260: Database Management'
-]
+  'CIS 260: Database Management',
+  'CIS 142: Beginning Programming using Python',
+  'WEB 114: Web Scripting: JavaScript I'
+];
 
 const PulseCircle = () => {
   const circleStyles: React.CSSProperties = {

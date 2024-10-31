@@ -161,7 +161,7 @@ const Hero = () => {
     height: '400px',
   };
 
-  console.log('%cuse grid rows for skills section', 'color:tomato')
+  // console.log('%cuse grid rows for skills section', 'color:tomato')
 
   return (
     <Center component="section">
@@ -195,7 +195,7 @@ const Hero = () => {
 const currentlyEnrolled = [
   'CIS 204: UNIX Scripting and Utilities',
   'CIS 242: Introduction to System Design and Analysis',
-  'Server Scripting: PHP with MySQL (elective)',
+  'WEB 128: Server Scripting: PHP with MySQL',
   'CIS 275: Web-Enabled Database Programming'
 ];
 const classesRemaining = [

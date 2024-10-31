@@ -193,9 +193,9 @@ const Hero = () => {
 }
 
 const currentlyEnrolled = [
+  'WEB 128: Server Scripting: PHP with MySQL',
   'CIS 204: UNIX Scripting and Utilities',
   'CIS 242: Introduction to System Design and Analysis',
-  'WEB 128: Server Scripting: PHP with MySQL',
   'CIS 275: Web-Enabled Database Programming'
 ];
 const classesRemaining = [

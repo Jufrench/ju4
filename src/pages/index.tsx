@@ -9,7 +9,7 @@ import { rem, Center, Container, SimpleGrid, Grid, Space, Box, Blockquote,
   ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card, Paper, Drawer, NavLink, Avatar, Accordion, List } from '@mantine/core';
 import { useMediaQuery, useDisclosure } from '@mantine/hooks';
 import { IconMenu2, IconSquareHalf, IconArrowBigRight, IconArrowRight, IconInfoCircle,
-          IconFlagFilled, IconWorld, IconCircleFilled } from '@tabler/icons-react';
+          IconFlagFilled, IconWorld, IconCircleFilled, IconCode} from '@tabler/icons-react';
 import { ReactNode } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -258,7 +258,7 @@ const About = () => {
         </Group>
         <List ml={27}>
           <>
-            {currentlyEnrolled.map(course => <List.Item>{course}</List.Item>)}
+            {currentlyEnrolled.map(course => <List.Item key={course}>{course}</List.Item>)}
           </>
         </List>
         <Accordion defaultValue="Courses Remaining">
@@ -268,13 +268,13 @@ const About = () => {
               <Text>Remaining</Text>
               <List ml="sm">
                 <>
-                  {classesRemaining.map(course => <List.Item>{course}</List.Item>)}
+                  {classesRemaining.map(course => <List.Item key={course}>{course}</List.Item>)}
                 </>
               </List>
               <Text>Taken</Text>
               <List ml="sm">
                 <>
-                  {classesTaken.map(course => <List.Item>{course}</List.Item>)}
+                  {classesTaken.map(course => <List.Item key={course}>{course}</List.Item>)}
                 </>
               </List>
             </Accordion.Panel>
@@ -505,6 +505,12 @@ const projectList: {}[] = [
     title: 'Flag Doyen',
     url: 'https://flagdoyen.vercel.app/',
     icon: <IconFlagFilled />,
+    iconHoverColor: '#c91a25'
+  },
+  {
+    title: 'Jotty RTE',
+    url: 'https://jotty-rte.vercel.app/',
+    icon: <IconCode />,
     iconHoverColor: '#2BDD66'
   },
   {

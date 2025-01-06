@@ -1,18 +1,9 @@
-import React, { ReactElement } from 'react';
-
+import React, { ReactNode } from 'react';
 import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "next/font/google";
-// import styles from "@/styles/Home.module.css";
-
-import { rem, Center, Container, SimpleGrid, Grid, Space, Box, Blockquote,
-  ActionIcon, Stack, Title, Group, Anchor, Text, Divider, Card, Paper, Drawer, NavLink, Avatar, Accordion, List } from '@mantine/core';
+import { rem, Center, SimpleGrid, Box, ActionIcon, Stack, Title, Group,
+  Anchor, Text, Divider,  Paper, Drawer, NavLink, Avatar, Accordion, List } from '@mantine/core';
 import { useMediaQuery, useDisclosure } from '@mantine/hooks';
-import { IconMenu2, IconSquareHalf, IconArrowBigRight, IconArrowRight, IconInfoCircle,
-          IconFlagFilled, IconWorld, IconCircleFilled, IconCode} from '@tabler/icons-react';
-import { ReactNode } from "react";
-
-const inter = Inter({ subsets: ["latin"] });
+import { IconMenu2, IconArrowBigRight, IconFlagFilled, IconWorld, IconCode} from '@tabler/icons-react';
 
 const sectionContentWidth = '90%';
 const sectionContentStyle = {
@@ -22,18 +13,6 @@ const sectionContentStyle = {
 const sectionContentTitle = {
   marginBottom: rem(20)
 };
-
-// const Header = () => {
-//   return (
-//     <header style={{border: "2px solid limegreen"}}>
-//       <Center>
-//         <Container style={sectionContentStyle}>
-//           Header
-//         </Container>
-//       </Center>
-//     </header>
-//   )
-// };
 
 const LogoSvg = () => {
   return (
@@ -65,19 +44,7 @@ const MobileNavItem = (props: {key: string | number, label: string, onClick?: ()
 
 const HeaderMobile = () => {
   const [opened, { open, close }] = useDisclosure(false);
-
   const handleOnClick = () => close();
-
-  // const navItems = navText.map(label => (
-  //   <NavLink
-  //     style={{fontWeight: 700}} 
-  //     color="black"
-  //     key={label}
-  //     label={label}
-  //     href={`#${label.toLowerCase()}`}
-  //     onClick={handleOnClick}
-  //     />
-  // ));
   const navItems = navItemsText.map(label => (
     <MobileNavItem key={label} label={label} onClick={handleOnClick} />
   ));
@@ -95,9 +62,6 @@ const HeaderMobile = () => {
   return (
     <header id="home">
       <Group p="md" style={{width: "90%", margin: "0 auto"}} justify="space-between">
-        {/* <Avatar variant="transparent" color="#00adad" radius="0" style={{color: "#00adad"}}>
-          <IconSquareHalf size="xs" strokeWidth={2} stroke="#00adad" />
-        </Avatar> */}
         <Avatar variant="transparent" color="#00adad" radius="0" style={{color: "#00adad"}}>
           <LogoSvg />
         </Avatar>
@@ -112,24 +76,8 @@ const TabletNavItem = (props: {key: string, title: string}) => {
   const navItemStyle: React.CSSProperties = {
     padding: `${rem(4)} ${rem(6)}`,
     fontWeight: 700,
-    // transition: 'all 1s',
-    // position: 'relative'
   };
 
-  // const [isHovered, setIsHovered] = React.useState<boolean>(false);
-
-  // return (
-  //   <Anchor
-  //     className={`header-tablet-nav-item ${isHovered ? 'hover' : ''}`}
-  //     c="black"
-  //     style={navItemStyle}
-  //     onMouseEnter={() => setIsHovered(true)}
-  //     onMouseLeave={() => setIsHovered(false)}
-  //     href={`#${props.title.toLowerCase()}`}
-  //     >
-  //       {props.title}
-  //     </Anchor>
-  // )
   return (
     <Anchor
       c="black"
@@ -161,8 +109,6 @@ const Hero = () => {
     height: '400px',
   };
 
-  // console.log('%cuse grid rows for skills section', 'color:tomato')
-
   return (
     <Center component="section">
       <Stack p="md" style={{width: sectionContentWidth, ...heroStyle}} gap={0}>
@@ -193,25 +139,25 @@ const Hero = () => {
 }
 
 const currentlyEnrolled = [
-  'WEB 128: Server Scripting: PHP with MySQL',
-  'CIS 204: UNIX Scripting and Utilities',
-  'CIS 242: Introduction to System Design and Analysis',
-  'CIS 275: Web-Enabled Database Programming'
-];
-const classesRemaining = [
   'CS 250: Basic Data Structures using C++',
   'CIS 264: Application Development and Programming',
-  'CS 202: Concepts of Programming Algorithms using Python',
   'WEB 124 Web Scripting: JavaScript II',
 ];
+const classesRemaining = [
+  'None'
+];
 const classesTaken = [
-  'WEB 110: HTML & CSS',
   'IT 140: Introduction to Networks',
   'CS 205: Concepts of Programming Algorithms using Java',
   'CS 235: Object-Oriented Programming Using C++',
-  'CIS 260: Database Management',
   'CIS 142: Beginning Programming using Python',
-  'WEB 114: Web Scripting: JavaScript I'
+  'CIS 204: UNIX Scripting and Utilities',
+  'CIS 242: Introduction to System Design and Analysis',
+  'CIS 260: Database Management',
+  'CIS 275: Web-Enabled Database Programming',
+  'WEB 110: HTML & CSS',
+  'WEB 114: Web Scripting: JavaScript I',
+  'WEB 128: Server Scripting: PHP with MySQL',
 ];
 
 const PulseCircle = () => {
@@ -250,7 +196,6 @@ const About = () => {
         <Text>I'm Web Developer & aspiring Full-Stack Developer. My educational & collegiate background is in Music & Foreign Languages, with a Major in French & Italian and a minor in vocal music. I decided to make a career out of Web Development when I allowed myself to follow my curiosities about coding.</Text>
         <Divider my="xs" />
         <Text>Currently I'm pursuing an associate's degree in Computer Information Systems @ JCCC while working full time as a Front-end Developer.</Text>
-        {/* <Divider my="xs" /> */}
         <Text fw="bold">Check out my degree progress</Text>
         <Group gap={3}>
           <PulseCircle />
@@ -284,69 +229,6 @@ const About = () => {
     </Center>
   )
 }
-
-// const SkillsOld = () => {
-//   const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL']
-//     .map((lang, index, arr) => (
-//       <React.Fragment key={index}>
-//         <Text style={{lineHeight: 1}} span>{lang}</Text>
-//         {index !== arr.length - 1 && <Divider orientation="vertical" />}
-//       </React.Fragment>
-//     ));
-
-//   const librariesAndFrameworks = ['React', 'Next.js', 'Gatsby', 'Bootstrap', 'Mantine']
-//     .map((lib, index, arr) => (
-//       <React.Fragment key={index}>
-//         <Text style={{lineHeight: 1}} span>{lib}</Text>
-//         {index !== arr.length - 1 && <Divider orientation="vertical" />}
-//       </React.Fragment>
-//     ));
-
-//   const tools = ['Git', 'Github', 'Vercel', 'Netlify']
-//     .map((tool, index, arr) => (
-//       <React.Fragment key={index}>
-//         <Text style={{lineHeight: 1}} span>{tool}</Text>
-//         {index !== arr.length - 1 && <Divider orientation="vertical" />}
-//       </React.Fragment>
-//     ));
-
-//   return (
-//     <Center id="skills" component="section">
-//       <Stack style={{...sectionContentStyle}} gap={0}>
-//         <Title order={3} size="h3">Skills</Title>
-//         <Stack>
-//           <Box>
-//             <Divider
-//               my="xs"
-//               labelPosition="left"
-//               label={
-//                 <Text c="gray">Languages</Text>
-//               } />
-//             <Group gap="xs">{languages}</Group>
-//           </Box>
-//           <Box>
-//             <Divider
-//               my="xs"
-//               labelPosition="left"
-//               label={
-//                 <Text>Libraries & Frameworks</Text>
-//               } />
-//             <Group gap="xs">{librariesAndFrameworks}</Group>
-//           </Box>
-//           <Box>
-//             <Divider
-//               my="xs"
-//               labelPosition="left"
-//               label={
-//                 <Text>Tools</Text>
-//               } />
-//             <Group gap="xs">{tools}</Group>
-//           </Box>
-//         </Stack>
-//       </Stack>
-//     </Center>
-//   )
-// };
 
 const Skills = () => {
   const languages = ['JavaScript', 'TypeScript', 'Node.js', 'Ember', 'Vue.js', 'CSS', 'HTML', 'Less/Sass', 'SQL', 'Java']
@@ -450,30 +332,9 @@ const ProjectCardTablet = (props: {title: string, url: string, icon?: ReactNode,
 }
 
 const Projects = (props: {projectList: {}[]}) => {
-
-  // const ProjectItem = (props: {key: string, title: string, url: string}) => {
-  //   return (
-  //     <Card component='a' href={props.url} target="_blank" style={{border: "1px solid gray", borderRadius: 0}}>
-  //       <Group justify="space-between">
-  //         <Title size="h5" style={{color: "gray"}}>{props.title}</Title>
-  //         {/* <ActionIcon component='a' variant='light' color="gray"> */}
-  //           <IconArrowBigRight color="gray" />
-  //         {/* </ActionIcon> */}
-  //       </Group>
-  //     </Card>
-  //   )
-  // };
-
-  // const projects = props.projectList.map((item: { [key:string]: string }) => {
-  //   return (
-  //     <ProjectItem key={item.title} title={item.title} url={item.url} />
-  //   );
-  // });
-
   const matchesTablet = useMediaQuery('(min-width: 47.5em)');
 
-
-  const projects2 = props.projectList.map((item: { [key:string]: string }) => {
+  const projects = props.projectList.map((item: { [key:string]: string }) => {
     return (
       <React.Fragment key={item.title}>
         {matchesTablet ?
@@ -492,8 +353,7 @@ const Projects = (props: {projectList: {}[]}) => {
       <Stack style={sectionContentStyle}>
         <Title size="h3" style={sectionContentTitle}>Projects</Title>
         <SimpleGrid spacing="md" cols={{ base: 1, sm: 3 }}>
-          {/* {projects} */}
-          {projects2}
+          {projects}
         </SimpleGrid>
       </Stack>
     </Center>
@@ -520,17 +380,6 @@ const projectList: {}[] = [
     iconHoverColor: '#00BFFF'
   }
 ];
-
-// function Quote() {
-//   const icon = <IconInfoCircle />;
-//   return (
-//     <Center>
-//       <Blockquote color="#00adad" style={sectionContentStyle} cite="– Ella Fitzgerald" icon={icon} mb="md">
-//         Just don’t give up what you’re trying to do. Where there is love and inspiration, I don’t think you can go wrong.
-//       </Blockquote>
-//     </Center>
-//   );
-// }
 
 const contactInfo: { [key:string]: string | ReactNode | undefined }[] = [
   {
@@ -571,10 +420,6 @@ const Footer = () => {
   return (
     <Center id="contact" component="footer" style={footerWrapperStyle}>
       <Group p="md" style={footerContentStyle} justify="flex-end">
-        {/* <Text span c="#00adad" style={{marginRight: "auto", fontWeight: 700}}>Jules</Text> */}
-        {/* <Avatar variant="transparent" color="#00adad" radius="0" style={{marginRight: "auto", color: "#00adad"}}>
-          <IconSquareHalf size="xs" strokeWidth={2} stroke="#00adad" />
-        </Avatar> */}
         <Avatar variant="transparent" color="#00adad" radius="0" style={{marginRight: "auto", color: "#00adad"}}>
           <LogoSvg />
         </Avatar>
@@ -600,13 +445,10 @@ export default function Home() {
       </Head>
       {matchesTablet ? <HeaderTablet /> : <HeaderMobile />}
       <Stack gap="sm">
-        {/* <Space h="sm" /> */}
         <Hero />
         <About />
-        {/* <SkillsOld /> */}
         <Skills />
         <Projects projectList={projectList} />
-        {/* <Quote /> */}
         <Footer />
       </Stack>
     </>

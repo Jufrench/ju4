@@ -247,7 +247,7 @@ const Skills = () => {
       </React.Fragment>
     ));
 
-  const tools = ['Git', 'Github', 'Vercel', 'Netlify']
+  const tools = ['Git', 'Github', 'Vercel', 'Netlify', 'Vite']
     .map((tool, index, arr) => (
       <React.Fragment key={index}>
         <Text style={{lineHeight: 1}} span>{tool}</Text>
@@ -362,8 +362,8 @@ const Projects = (props: {projectList: {}[]}) => {
 
 const projectList: {}[] = [
   {
-    title: 'Flag Doyen',
-    url: 'https://flagdoyen.vercel.app/',
+    title: 'Flag Centro',
+    url: 'https://flagcentro.vercel.app/',
     icon: <IconFlagFilled />,
     iconHoverColor: '#c91a25'
   },

@@ -138,11 +138,9 @@ const Hero = () => {
   )
 }
 
-const currentlyEnrolled = [
-  'CS 250: Basic Data Structures using C++',
-  'CIS 264: Application Development and Programming',
-  'WEB 124 Web Scripting: JavaScript II',
-];
+// const currentlyEnrolled = [
+  
+// ];
 const classesRemaining = [
   'None'
 ];
@@ -158,6 +156,9 @@ const classesTaken = [
   'WEB 110: HTML & CSS',
   'WEB 114: Web Scripting: JavaScript I',
   'WEB 128: Server Scripting: PHP with MySQL',
+  'CS 250: Basic Data Structures using C++',
+  'CIS 264: Application Development and Programming',
+  'WEB 124 Web Scripting: JavaScript II',
 ];
 
 const PulseCircle = () => {
@@ -195,17 +196,18 @@ const About = () => {
         <Text>Hello.</Text>
         <Text>I'm Web Developer & aspiring Full-Stack Developer. My educational & collegiate background is in Music & Foreign Languages, with a Major in French & Italian and a minor in vocal music. I decided to make a career out of Web Development when I allowed myself to follow my curiosities about coding.</Text>
         <Divider my="xs" />
-        <Text>Currently I'm pursuing an associate's degree in Computer Information Systems @ JCCC while working full time as a Front-end Developer.</Text>
+        <Text style={{ textDecoration: "line-through"}}>Currently I'm pursuing an associate's degree in Computer Information Systems @ JCCC while working full time as a Front-end Developer.</Text>
+        <Text>In May of 2025 I graduated with an associate's degree in Computer Information Systems @ JCCC while working full time as a Front-end Developer.</Text>
         <Text fw="bold">Check out my degree progress</Text>
         <Group gap={3}>
           <PulseCircle />
           <Text>Currently enrolled in:</Text>
         </Group>
-        <List ml={27}>
+        {/* <List ml={27}>
           <>
             {currentlyEnrolled.map(course => <List.Item key={course}>{course}</List.Item>)}
           </>
-        </List>
+        </List> */}
         <Accordion defaultValue="Courses Remaining">
           <Accordion.Item value="remaining">
             <Accordion.Control>Classes Remaining/Taken</Accordion.Control>
